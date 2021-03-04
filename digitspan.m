@@ -16,9 +16,9 @@ grey = white / 2;
 % text
 [screenXpixels, screenYpixels] = Screen('WindowSize', window);
 Screen('TextSize', window, 70);
-Screen('TextFont', window, 'Courier');
+Screen('TextFont', window, 'Helvetica');
 DrawFormattedText(window, 'Hello World',...
-screenXpixels * 0.5, 'center', [0 0 1]);
+'center', screenYpixels * 0.5, [0 0 1]);
 Screen('Flip', window);
 
 KbStrokeWait;
