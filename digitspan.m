@@ -29,8 +29,10 @@ while count <= rounds
         Screen('TextFont', window, 'Helvetica');
         DrawFormattedText(window, span_output,...
         'center', screenYpixels * 0.5, [0 0 1]);
-        Screen('Flip', window);
+       
 span_input = GetEchoString(window, 'Type the digits here:', 700, 675, black, white);
+ Screen('Flip', window);
+ 
 	if  span_output == span_input 
 		score_span = score_span + 1;
 		count = count + 1;
