@@ -13,22 +13,14 @@ black = BlackIndex(screenNumber);
 grey = white / 2;
 [window, windowRect] = PsychImaging('OpenWindow', screenNumber, grey);
 
-% Begin experiment
-topPriorityLevel = MaxPriority(window);
-Priority(topPriorityLevel);
-numSecs = 1; % duration each frame will be displayed for
-vbl = Screen('Flip', window);
-for frame = 1:10
- 
-    % fill the screen with a random color
-    randR = rand();
-    randG = rand();
-    randB = rand();
-    Screen('FillRect', window, [randR randG randB]);
- 
-    % Flip to the screen
-    vbl = Screen('Flip', window, vbl + numSecs - ifi/2);
+% text
+[screenXpixels, screenYpixels] = Screen('WindowSize', window);
+Screen('TextSize', window, 70);
+Screen('TextFont', window, 'Courier');
+DrawFormattedText(window, 'Hello World',...
+screenXpixels * 0.5, 'center', [0 0 1]);
+Screen('Flip', window);
 
-end
-Priority(0);
+KbStrokeWait;
 sca;
+
