@@ -29,7 +29,7 @@ Screen('TextFont', window, 'Helvetica');
 DrawFormattedText(window, str_span_output ,...
 'center', screenYpixels * 0.5, [0 0 1]);
 Screen('Flip', window, 0.25);
-span_input = GetEchoString(window, 'Type the digits here:', 500, 675, black, white);
+span_input = GetEchoString(window, 'Type digits here:', 500, 675, black, white);
 
 %actual loop 
 %while count <= rounds
