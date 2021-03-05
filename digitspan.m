@@ -54,8 +54,5 @@ end
 disp(score_span)
 disp(error_span)
 
-
-
 KbStrokeWait;
 sca;
-
