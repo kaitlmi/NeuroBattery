@@ -19,26 +19,28 @@ score_span = 0 ;
 count = 1 ;
 rounds = 2;
 error_span = 0;
+
 %actual loop 
 while count <= rounds
 	ii =  count ;
 	span_output = randi( 9, 1, ii);
-        % text
+    str_span_output = num2str(span_output);
+        
+    % text
         [screenXpixels, screenYpixels] = Screen('WindowSize', window);
         Screen('TextSize', window, 70);
         Screen('TextFont', window, 'Helvetica');
-        DrawFormattedText(window, sprintf(span_output),...
+        DrawFormattedText(window, str_span_putput ,...
         'center', screenYpixels * 0.5, [0 0 1]);
-       
-span_input = GetEchoString(window, 'Type the digits here:', 700, 675, black, white);
- Screen('Flip', window);
+        span_input = GetEchoString(window, 'Type the digits here:', 700, 675, black, white);
+        Screen('Flip', window);
  
 	if  span_output == span_input 
 		score_span = score_span + 1;
 		count = count + 1;
 	else
 		error_span = error_span + 1;
-span_output = randi( 9, 1, ii); 
+        span_output = randi( 9, 1, ii); 
     end
 end
 disp(score_span)
