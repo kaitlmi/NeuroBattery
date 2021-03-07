@@ -23,7 +23,7 @@ score_span = 0 ; %score
 count = 1 ; %number of rounds participant is on
 rounds = 2; %total number of rounds set by tester
 error_span = 0; %number of errors
-span_output = randi( 9, 1, 2); %output of digit span
+span_output = randi( 9, 1, count); %output of digit span
 str_span_output = num2str(span_output); %string version of output of digit span
 
 while count <= rounds %actual loop 
@@ -31,22 +31,22 @@ while count <= rounds %actual loop
 topPriorityLevel = MaxPriority(window);
 Priority(topPriorityLevel);
 numSecs = 1; % duration each frame will be displayed for
-vbl = Screen('Flip', window, 1);
+vbl = Screen('Flip', window, numSecs); 
 [screenXpixels, screenYpixels] = Screen('WindowSize', window);
 Screen('TextSize', window, 70);
 Screen('TextFont', window, 'Helvetica');
 DrawFormattedText(window, str_span_output ,...
 'center', screenYpixels * 0.5, [0 0 1]);
 Screen('Flip', window, vbl + numSecs - ifi/2);
-%input text 
+%input text code 
 span_input = GetEchoString(window, 'Type digits here:', 500, 675, black, white);
+
 	if  span_output == span_input 
 		score_span = score_span + 1;
 		count = count + 1;
     else
         error_span = error_span + 1;
-        disp('This round was incorrect')
-        disp(count)
+        fprintf('Round', count, 'was incorrect')
         count = count + 1; 
     end
 end
