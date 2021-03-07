@@ -23,12 +23,11 @@ score_span = 0 ; %score
 count = 1 ; %number of rounds participant is on
 rounds = 5; %total number of rounds set by tester
 error_span = 0; %number of errors
-correct = zeroes(rounds);
+correct = zeros(1, rounds);
 span_output = randi( 9, 1, count); %output of digit span
-str_span_output = num2str(span_output); %string version of output of digit span
+str_span_output = num2str(span_output) %string version of output of digit span
 
 while count <= rounds %actual loop
-    count = count + 1;
 %stimuli text 
 topPriorityLevel = MaxPriority(window);
 Priority(topPriorityLevel);
@@ -43,10 +42,10 @@ Screen('Flip', window, vbl + (2*numSecs) - ifi/2);
 %input text code 
 span_input = GetEchoString(window, 'Type digits here:', 500, 675, black, white);
 
-	if  span_output == span_input 
+	if  str_span_output == span_input 
 		score_span = score_span + 1;
 		count = count + 1;
-        correct(count) = count
+        correct(count) = count;
     else
         error_span = error_span + 1;
         disp(['Round ', num2str(count), ' was incorrect'])
@@ -54,7 +53,8 @@ span_input = GetEchoString(window, 'Type digits here:', 500, 675, black, white);
     end
     
 end
-disp([num2str(max(correct)), ' is the max number memorized'])
+x = max(correct);
+disp([num2str(x), ' is the max number memorized'])
 disp(score_span)
 disp(error_span)
 
