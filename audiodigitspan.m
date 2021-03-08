@@ -32,7 +32,7 @@ WaitSecs(2);
 
 while count <= rounds %actual loop
 span_output = randi( 9, 1, count); %output of digit span
-
+sound_output = span_output;
 
 %stimuli 
 topPriorityLevel = MaxPriority(window);
@@ -40,37 +40,37 @@ Priority(topPriorityLevel);
 numSecs = 1; % duration each frame will be displayed for
 vbl = Screen('Flip', window, numSecs); 
 
-PSEUDO: as long as there are digits in span_output
-if span_output(1) = 0
-PLAY SOUND zero
- 	span_output(1) = [ ]
-elseif span_output(1) = 1
-PLAY SOUND one
- 	span_output(1) = [ ]
-elseif span_output(1) = 2
-PLAY SOUND two
- 	span_output(1) = [ ]
-elseif span_output(1) = 3
-PLAY SOUND three
- 	span_output(1) = [ ]
-elseif span_output(1) = 4
-PLAY SOUND four
- 	span_output(1) = [ ]
-elseif span_output(1) = 5
-PLAY SOUND five
- 	span_output(1) = [ ]
-elseif span_output(1) = 6
-PLAY SOUND six
- 	span_output(1) = [ ]
-elseif span_output(1) = 7
-PLAY SOUND seven
- 	span_output(1) = [ ]
-elseif span_output(1) = 8
-PLAY SOUND eight
- 	span_output(1) = [ ]
+%PSEUDO: as long as there are digits in span_output
+if sound_output(1) == 0
+%PLAY SOUND zero
+ 	span_output(1) = [ ];
+elseif sound_output(1) == 1
+%PLAY SOUND one
+ 	span_output(1) = [ ];
+elseif sound_output(1) == 2
+%PLAY SOUND two
+ 	span_output(1) = [ ];
+elseif sound_output(1) == 3
+%PLAY SOUND three
+ 	span_output(1) = [ ];
+elseif sound_output(1) == 4
+%PLAY SOUND four
+ 	span_output(1) = [ ];
+elseif sound_output(1) == 5
+%PLAY SOUND five
+ 	span_output(1) = [ ];
+elseif sound_output(1) == 6
+%PLAY SOUND six
+ 	span_output(1) = [ ];
+elseif sound_output(1) == 7
+%PLAY SOUND seven
+ 	span_output(1) = [ ];
+elseif sound_output(1) == 8
+%PLAY SOUND eight
+ 	sound_output(1) = [ ];
 else
-PLAY SOUND nine
- 	span_output(1) = [ ]
+%PLAY SOUND nine
+ 	sound_output(1) = [ ];
 end
 
 %input text code 
