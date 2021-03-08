@@ -46,8 +46,13 @@ Screen('TextSize', window, 70);
 Screen('TextFont', window, 'Helvetica');
 DrawFormattedText(window, num2str(span_output) ,...
 'center', screenYpixels * 0.5, [0 0 1]);
-Screen('Flip', window, vbl + (2*numSecs) - ifi/2);
-WaitSecs(1);
+    if count <= 6
+       Screen('Flip', window, vbl + (2*numSecs) - ifi/2);
+       WaitSecs(1);
+    else
+       Screen('Flip', window, vbl + (2*numSecs) - ifi/2);
+       WaitSecs(1);
+    end
 %input text code 
 span_input = str2num(GetEchoString(window, 'Type digits here:', 500, 675, black, white));
 
