@@ -43,13 +43,14 @@ Screen('TextFont', window, 'Helvetica');
 DrawFormattedText(window, num2str(span_output) ,...
 'center', screenYpixels * 0.5, [0 0 1]);
 Screen('Flip', window, vbl + (2*numSecs) - ifi/2);
+WaitSecs(1);
 %input text code 
-span_input = str2double(GetEchoString(window, 'Type digits here:', 500, 675, black, white));
+span_input = str2num(GetEchoString(window, 'Type digits here:', 500, 675, black, white));
 
 	if  span_output == span_input 
 		score_span = score_span + 1;
-		count = count + 1;
         correct(count) = count;
+        count = count + 1;
     else
         error_span = error_span + 1;
         disp(['Round ', num2str(count), ' was incorrect'])
