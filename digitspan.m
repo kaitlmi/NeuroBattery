@@ -27,6 +27,10 @@ correct = zeros(1, rounds);
 
 %code note: start fitting these vars into loop??
 
+DrawFormattedText(window, 'Directions: Type the numbers you see and press enter when done.' ,...
+'center', 'center');
+Screen('Flip', window, 1);
+WaitSecs(1);
 
 
 while count <= rounds %actual loop
