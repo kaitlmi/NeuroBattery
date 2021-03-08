@@ -31,7 +31,7 @@ correct = zeros(1, rounds);
 
 while count <= rounds %actual loop
 span_output = randi( 9, 1, count); %output of digit span
-str_span_output = num2str(span_output) %string version of output of digit span
+%str_span_output = num2str(span_output); %string version of output of digit span
 %stimuli text 
 topPriorityLevel = MaxPriority(window);
 Priority(topPriorityLevel);
@@ -40,13 +40,13 @@ vbl = Screen('Flip', window, numSecs);
 [screenXpixels, screenYpixels] = Screen('WindowSize', window);
 Screen('TextSize', window, 70);
 Screen('TextFont', window, 'Helvetica');
-DrawFormattedText(window, str_span_output ,...
+DrawFormattedText(window, num2str(span_output) ,...
 'center', screenYpixels * 0.5, [0 0 1]);
 Screen('Flip', window, vbl + (2*numSecs) - ifi/2);
 %input text code 
 span_input = GetEchoString(window, 'Type digits here:', 500, 675, black, white);
 
-	if  str_span_output == span_input 
+	if  span_output == span_input 
 		score_span = score_span + 1;
 		count = count + 1;
         correct(count) = count;
