@@ -27,10 +27,11 @@ correct = zeros(1, rounds);
 
 %code note: start fitting these vars into loop??
 
-span_output = randi( 9, 1, count); %output of digit span
-str_span_output = num2str(span_output) %string version of output of digit span
+
 
 while count <= rounds %actual loop
+span_output = randi( 9, 1, count); %output of digit span
+str_span_output = num2str(span_output) %string version of output of digit span
 %stimuli text 
 topPriorityLevel = MaxPriority(window);
 Priority(topPriorityLevel);
