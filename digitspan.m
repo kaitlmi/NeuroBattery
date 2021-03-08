@@ -21,7 +21,7 @@ rr = FrameRate(window);
 % variables
 score_span = 0 ; %score 
 count = 1 ; %number of rounds participant is on
-rounds = 5; %total number of rounds set by tester
+rounds = 12; %total number of rounds set by tester, 7-9 usually max
 error_span = 0; %number of errors
 correct = zeros(1, rounds);
 
@@ -30,7 +30,7 @@ correct = zeros(1, rounds);
 DrawFormattedText(window, 'Directions: Type the numbers you see and press enter when done.' ,...
 'center', 'center');
 Screen('Flip', window, 1);
-WaitSecs(1);
+WaitSecs(2);
 
 
 while count <= rounds %actual loop
@@ -64,8 +64,6 @@ span_input = str2num(GetEchoString(window, 'Type digits here:', 500, 675, black,
 end
 x = max(correct);
 disp([num2str(x), ' is the max number memorized'])
-disp(score_span)
-disp(error_span)
 
 %KbStrokeWait;
 sca;
