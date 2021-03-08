@@ -1,4 +1,4 @@
-function x = play_sound(y)
+
 [wavedata, freq] = audioread('Elevator Beep.m4a'); % load sound file
 InitializePsychSound(1); % initializes sound driver with low latency settings
 % Open Psych-Audio port, with the following arguments
