@@ -26,7 +26,7 @@ error_span = 0; %number of errors
 correct = zeros(1, rounds);
 
 
-% Introductory explanation of the Elevator Experiment
+% Introductory explanation of the digitspantask
 DrawFormattedText(window, 'Welcome to the visuospatial digit span experiment!', 'center', screenYpixels * 0.5, white);
 Screen('Flip', window);
 WaitSecs(3);
