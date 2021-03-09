@@ -21,16 +21,26 @@ rr = FrameRate(window);
 % variables
 score_span = 0 ; %score 
 count = 1 ; %number of rounds participant is on
-rounds = 3; %total number of rounds set by tester, 7-9 usually max
+rounds = 5; %total number of rounds set by tester, 7-9 usually max
 error_span = 0; %number of errors
 correct = zeros(1, rounds);
 
-%code note: start fitting these vars into loop??
 
-DrawFormattedText(window, 'Directions: Type the numbers you see and press enter when done.' ,...
+% Introductory explanation of the digitspantask
+[screenXpixels, screenYpixels] = Screen('WindowSize', window);
+DrawFormattedText(window, 'Welcome to the visuospatial digit span experiment!', 'center', screenYpixels * 0.5, white);
+Screen('Flip', window);
+WaitSecs(3);
+DrawFormattedText(window, ['In this task, your goal' '\n is to memorize as many digits as possible'], 'center', 'center', white);
+Screen('Flip', window);
+WaitSecs(3.5);
+DrawFormattedText(window, 'Type the numbers you see and press enter when done.' ,...
 'center', 'center');
 Screen('Flip', window, 1);
 WaitSecs(2);
+DrawFormattedText(window, ['Let''s practice'], 'center', 'center', white);
+Screen('Flip', window);
+WaitSecs(3.5);;
 
 
 while count <= rounds %actual loop
@@ -41,7 +51,7 @@ topPriorityLevel = MaxPriority(window);
 Priority(topPriorityLevel);
 numSecs = 1; % duration each frame will be displayed for
 vbl = Screen('Flip', window, numSecs); 
-[screenXpixels, screenYpixels] = Screen('WindowSize', window);
+%[screenXpixels, screenYpixels] = Screen('WindowSize', window);
 Screen('TextSize', window, 70);
 Screen('TextFont', window, 'Helvetica');
 DrawFormattedText(window, num2str(span_output) ,...
@@ -59,7 +69,11 @@ DrawFormattedText(window, num2str(span_output) ,...
 %input text code 
 span_input = str2num(GetEchoString(window, 'Type digits here:', 45, 675, black, white));
 
-	if  span_output ~= span_input 
+	if  length(span_output) ~= length(span_input)
+        error_span = error_span + 1;
+        disp(['Round ', num2str(count), ' was incorrect'])
+        count = count + 1; 
+    elseif span_output ~= span_input 
 		error_span = error_span + 1;
         disp(['Round ', num2str(count), ' was incorrect'])
         count = count + 1; 
@@ -73,5 +87,4 @@ end
 x = max(correct);
 disp([num2str(x), ' is the max number memorized'])
 
-%KbStrokeWait;
 sca;
