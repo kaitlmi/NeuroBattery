@@ -23,21 +23,21 @@ elevator_up = imread('IMG_0449.jpg'); % elevator going up
 imageTexture_up = Screen('MakeTexture', window, elevator_up);
 elevator_down = imread('IMG_0451.jpg'); % elevator going down
 imageTexture_down = Screen('MakeTexture', window, elevator_down);
+
 % Setting up the sounds used in the experiment
 [wavedata1, freq1] = audioread('Elevator Beep.m4a'); % Elevator sound
 [wavedata2, freq2] = audioread('Distracting Sound.m4a'); % Distracting sound
-InitializePsychSound(1);
+InitializePsychSound(1); % Initializing the PsychToolBox Sound. 
 pahandle1 = PsychPortAudio('Open', [], 1, 1, freq1, 2); % pahandle for elevator sound
 pahandle2 = PsychPortAudio('Open', [], 1, 1, freq2, 2); % pahandle for distracting sound
-PsychPortAudio('FillBuffer', pahandle1, [wavedata1, wavedata1]');
+PsychPortAudio('FillBuffer', pahandle1, [wavedata1, wavedata1]'); 
 PsychPortAudio('FillBuffer', pahandle2, [wavedata2, wavedata2]');
-
 
 % Setting up Text size
 Screen('TextSize', window, 70);
 
 % Introductory explanation of the Elevator Experiment
-DrawFormattedText(window, 'Welcome to the Experiment!', 'center', screenYpixels * 0.5, white);
+DrawFormattedText(window, 'Welcome to the Experiment!', 'center', 'center', white);
 Screen('Flip', window);
 WaitSecs(3);
 DrawFormattedText(window, ['Today you will be doing' '\n a modified version of a' '\n Test of Everyday Attention' '\n known as Elevator Counting.'],'center', 'center', white);
@@ -45,7 +45,7 @@ Screen('Flip', window);
 WaitSecs(4);
 DrawFormattedText(window, ['In this task, your goal' '\n is to guess which floor you are on' '\n based on the number of beeps you hear' '\n and the direction of the elevator arrow.'], 'center', 'center', white);
 Screen('Flip', window);
-WaitSecs(7);
+WaitSecs(6);
 DrawFormattedText(window, 'The beep will sound like this:', 'center', 'center', white);
 Screen('Flip', window);
 WaitSecs(2);
@@ -55,13 +55,13 @@ PsychPortAudio('Stop', pahandle1, 1,1);
 % Continuation of explaining the experiment
 DrawFormattedText(window, ['You will imagine entering the elevator' '\n on the 10th floor.'], 'center', 'center', white);
 Screen('Flip', window);
-WaitSecs(5);
+WaitSecs(3);
 DrawFormattedText(window, ['You need to find what floor you are on' '\n by counting the beeps.'], 'center', 'center', white);
 Screen('Flip', window);
 WaitSecs(5);
 DrawFormattedText(window, ['Each beep means you have' '\n risen or dropped a floor'], 'center', 'center', white);
 Screen('Flip', window);
-WaitSecs(5);
+WaitSecs(3);
 DrawFormattedText(window, ['Pay attention to the direction of the arrow' '\n that will show up in the background.'], 'center', 'center', white);
 Screen('Flip', window);
 WaitSecs(4);
@@ -71,7 +71,11 @@ WaitSecs(2);
 DrawFormattedText(window, 'Press the space key to start', 'center', 'center', white);
 Screen('Flip', window);
 KbStrokeWait;
+
 % Trial Run of the experiment
+DrawFormattedText(window, '10th floor', 'center', 'center', white);
+Screen('Flip', window);
+WaitSecs(2);
 Screen('DrawTexture', window, imageTexture_up, [], [], 0); % Sets up image of an elevator going up
 Screen('Flip', window);
 % Plays 4 beeps going up. 
@@ -111,10 +115,7 @@ else
     WaitSecs(6);
     DrawFormattedText(window, 'Lets enter the real experiment.', 'center', 'center', white);
     Screen('Flip', window);
-    WaitSecs(3);
-    DrawFormattedText(window, 'There will be 3 rounds.', 'center', 'center', white);
-    Screen('Flip', window);
-    WaitSecs(3);
+    WaitSecs(2);
     DrawFormattedText(window, 'Press any key to begin', 'center', 'center', white);
     Screen('Flip', window);
     KbStrokeWait
@@ -127,7 +128,8 @@ for Round_Number = 1:3 % 3 total rounds of the experiment
     DrawFormattedText(window, '10th floor', 'center', 'center', white);
     Screen('Flip', window);
     WaitSecs(2);
-    for jj = 1:3 % 3 repeats of a block with one block having an elevator going up and going down
+    Random_iteration = randi(3,1,1); % Generates a random number from 1-3. 
+    for jj = 1:Random_iteration % 1-3 repeats of a block with one block having an elevator going up and going down
         Random_Number = randi(10,1,4); % Generating a vector of 4 random numbers from 1-10.
         % Switching to an up arrow elevator
         Screen('DrawTexture', window, imageTexture_up, [], [], 0);
@@ -137,7 +139,7 @@ for Round_Number = 1:3 % 3 total rounds of the experiment
         % Random_Number position jj. 
         PsychPortAudio('Start', pahandle1);
         PsychPortAudio('Stop', pahandle1, 1,1, Random_Number(jj)); 
-        WaitSecs(2);
+        WaitSecs(1);
         % Calculating what floor you would be on
         Floor_Number = Floor_Number + Random_Number(jj);
         % Switching to a down elevator
@@ -148,7 +150,7 @@ for Round_Number = 1:3 % 3 total rounds of the experiment
         % Random_Number position jj. 
         PsychPortAudio('Start', pahandle1);
         PsychPortAudio('Stop', pahandle1, 1,1, Random_Number(jj+1));
-        WaitSecs(2);
+        WaitSecs(1);
         % Calculating what floor you would be on
         Floor_Number = Floor_Number - Random_Number(jj+1);
     end
@@ -160,20 +162,147 @@ for Round_Number = 1:3 % 3 total rounds of the experiment
     end
     WaitSecs(2);
 end
+
+% Affirming how many rounds you got correct. 
 Screen('Flip', window);
-DrawFormattedText(window, ['You got ' num2str(correct_round) ' correct.'] , 'center', 'center', white);
+DrawFormattedText(window, ['You got ' num2str(correct_round) ' rounds correct.'] , 'center', 'center', white);
 Screen('Flip', window);
 WaitSecs(3);
 DrawFormattedText(window, 'Lets increase the difficulty of the test.', 'center', 'center', white);
 Screen('Flip', window);
-DrawFormattedText(window, ['Now there is a distracting sound that' '\n you will have to ignore when counting floor.'], 'center', 'center', white);
+WaitSecs(2);
+DrawFormattedText(window, ['Now there is a distracting sound that' '\n you will have to ignore when counting floors.'], 'center', 'center', white);
 Screen('Flip', window);
-WaitSecs(3);
+WaitSecs(4);
 DrawFormattedText(window, 'It sounds like this:', 'center', 'center', white);
 Screen('Flip', window);
 WaitSecs(2);
-% Playing a sample of the elevator sound audio
+% Playing a sample of the distracting sound.
 PsychPortAudio('Start', pahandle2);
 PsychPortAudio('Stop', pahandle2, 1,1);
+% More introductory words. 
+DrawFormattedText(window, 'Lets try a practice round.', 'center', 'center', white);
+Screen('Flip', window);
+WaitSecs(2);
+DrawFormattedText(window, 'Press the space key to start', 'center', 'center', white);
+Screen('Flip', window);
 KbStrokeWait;
+
+% Trial Run of the second experiment. 
+% Shows what floor you will start on. 
+DrawFormattedText(window, '10th floor', 'center', 'center', white);
+Screen('Flip', window);
+WaitSecs(2);
+Screen('DrawTexture', window, imageTexture_up, [], [], 0); % Sets up image of an elevator going up
+Screen('Flip', window);
+% Plays 4 beeps going up. 
+WaitSecs(1);
+PsychPortAudio('Start', pahandle1);
+PsychPortAudio('Stop', pahandle1, 1,1,4);
+% Plays 1 distracting sound.
+WaitSecs(1);
+PsychPortAudio('Start', pahandle2);
+PsychPortAudio('Stop', pahandle2, 1, 1, 1);
+% Plays 2 beeps going up. 
+WaitSecs(1);
+PsychPortAudio('Start', pahandle1);
+PsychPortAudio('Stop', pahandle1, 1,1,2);
+
+% Collecting the Response.
+Test_Response = GetEchoString(window, 'What floor are you on?', 100, 450, white, black);
+
+% Assessing whether the answer is right or not with messages. 
+% Message if the answer is correct.
+if (Test_Response == num2str(16))
+    Screen('Flip', window);
+    DrawFormattedText(window, 'Nice Job! That is correct!', 'center', 'center', white);
+    Screen('Flip', window);
+    WaitSecs(2);
+    DrawFormattedText(window, 'Lets enter the experiment.', 'center', 'center', white);
+    Screen('Flip', window);
+    WaitSecs(3);
+    DrawFormattedText(window, 'Press the space key to begin.', 'center', 'center', white);
+    Screen('Flip', window);
+    KbStrokeWait
+% Message if the answer is incorrect.
+else 
+    Screen('Flip', window);
+    DrawFormattedText(window, 'The correct response is 16.', 'center', 'center', white);
+    Screen('Flip', window);
+    WaitSecs(2);
+    DrawFormattedText(window, ['Starting from the 10th floor,' '\n there were 4 beeps going up' '\n a distracting sound,' 'and 2 beeps going up.' '\n That is 10+4+0+2 which is the 16th floor'], 'center', 'center', white);
+    Screen('Flip', window);
+    WaitSecs(6);
+    DrawFormattedText(window, 'Lets enter the real experiment.', 'center', 'center', white);
+    Screen('Flip', window);
+    WaitSecs(3);
+    DrawFormattedText(window, 'There will be 3 rounds.', 'center', 'center', white);
+    Screen('Flip', window);
+    WaitSecs(3);
+    DrawFormattedText(window, 'Press any key to begin', 'center', 'center', white);
+    Screen('Flip', window);
+    KbStrokeWait
+end
+
+correct_round = 0; % Number of correctly identified floors
+for Round_Number = 1:3 % 3 total rounds of the experiment
+    Floor_Number = 10; % Starting Floor Level
+    Screen('Flip', window); % Sets up black screen. 
+    DrawFormattedText(window, '10th floor', 'center', 'center', white); % Shows "10th floor" on the screen.
+    Screen('Flip', window);
+    WaitSecs(2);
+    Random_iteration = randi(3,1,1); % Generates a random integer from 1-3. 
+    for jj = 1:Random_iteration % 1-3 repeats of a block with one block having an elevator going up and going down. 
+        Random_Number = randi(5,1,6); % Generating a vector of 6 random numbers from 1-5. Values used to determine the number of beeps.
+        Random_Number_distracting = randi(2,1,4); % Generating a vector of 4 random numbers that are either 1 or 2. 
+        % Switching to an up arrow elevator
+        Screen('DrawTexture', window, imageTexture_up, [], [], 0);
+        Screen('Flip', window);
+        WaitSecs(1);
+        % Starting audio and playing the number of tones from the vector
+        % Random_Number position jj. Plays beeps Random_Number(jj) times. 
+        PsychPortAudio('Start', pahandle1);
+        PsychPortAudio('Stop', pahandle1, 1,1, Random_Number(jj)); 
+        WaitSecs(1);
+        % Calculating what floor you would be on
+        Floor_Number = Floor_Number + Random_Number(jj);
+        % Play Distracting Sound Random_Number_distracting(jj) number of times. 
+        PsychPortAudio('Start', pahandle2);
+        PsychPortAudio('Stop', pahandle2, 1, 1, Random_Number_distracting(jj));
+        WaitSecs(1);
+        % Plays Random_Number(jj+1) times. 
+        PsychPortAudio('Start', pahandle1);
+        PsychPortAudio('Stop', pahandle1, 1,1, Random_Number(jj+1)); 
+        WaitSecs(1);
+        % Calculating what floor you would be on
+        Floor_Number = Floor_Number + Random_Number(jj+1);
+        % Switching to a down elevator background
+        Screen('DrawTexture', window, imageTexture_down, [], [], 0);
+        Screen('Flip', window);
+        WaitSecs(1);
+        % Starting audio and playing the number of tones from the vector Random_Number(jj+2). 
+        PsychPortAudio('Start', pahandle1);
+        PsychPortAudio('Stop', pahandle1, 1,1, Random_Number(jj+2));
+        WaitSecs(1);
+        % Calculating what floor you would be on
+        Floor_Number = Floor_Number - Random_Number(jj+2);
+         % Play Distracting Sound Random_Number_distracting(jj+1) number of times. 
+        PsychPortAudio('Start', pahandle2);
+        PsychPortAudio('Stop', pahandle2, 1, 1, Random_Number_distracting(jj+1));
+    end
+    Response = GetEchoString(window, 'What floor are you on?', 100, 450, white, black);
+    if num2str(Floor_Number) == Response
+        correct_round = correct_round + 1;
+    else 
+        correct_round = correct_round + 0;
+    end
+    WaitSecs(2);
+end
+Screen('Flip', window);
+DrawFormattedText(window, ['You got ' num2str(correct_round) ' rounds correct.'] , 'center', 'center', white);
+Screen('Flip', window);
+WaitSecs(2);
+DrawFormattedText(window, 'Thanks for participating!', 'center', 'center', white);
+Screen('Flip', window);
+WaitSecs(2);
 sca;
