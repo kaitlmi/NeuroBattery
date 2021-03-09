@@ -21,7 +21,7 @@ rr = FrameRate(window);
 % variables
 score_span = 0 ; %score 
 count = 1 ; %number of rounds participant is on
-rounds = 2; %total number of rounds set by tester, 7-9 usually max
+rounds = 10; %total number of rounds set by tester, 7-9 usually max
 error_span = 0; %number of errors
 correct = zeros(1, rounds);
  
@@ -40,89 +40,90 @@ Priority(topPriorityLevel);
 numSecs = 1; % duration each frame will be displayed for
 vbl = Screen('Flip', window, numSecs); 
 
-%PSEUDO: as long as there are digits in span_output
+while length(sound_output)>= 1
 if sound_output(1) == 0
-[wavedata, freq] = audioread('zero.m4a'); % load sound file
-InitializePsychSound(1); % initializes sound driver with low latency settings
-pahandle = PsychPortAudio('Open', 3, 1, 1, freq, 2);
-PsychPortAudio('FillBuffer', pahandle, [wavedata, wavedata]');
-PsychPortAudio('Start', pahandle); %starts sound immediately
-PsychPortAudio('Stop', pahandle, 1); % wait for the audio to finish playing
- 	span_output(1) = [ ];
+    [wavedata, freq] = audioread('zero.m4a'); % load sound file
+    InitializePsychSound(1); % initializes sound driver with low latency settings
+    pahandle = PsychPortAudio('Open', 3, 1, 1, freq, 2);
+    PsychPortAudio('FillBuffer', pahandle, [wavedata, wavedata]');
+    PsychPortAudio('Start', pahandle); %starts sound immediately
+    PsychPortAudio('Stop', pahandle, 1); % wait for the audio to finish playing
+ 	sound_output(1) = [];
 elseif sound_output(1) == 1
-[wavedata, freq] = audioread('one.m4a'); % load sound file
-InitializePsychSound(1); % initializes sound driver with low latency settings
-pahandle = PsychPortAudio('Open', 3, 1, 1, freq, 2);
-PsychPortAudio('FillBuffer', pahandle, [wavedata, wavedata]');
-PsychPortAudio('Start', pahandle); %starts sound immediately
-PsychPortAudio('Stop', pahandle, 1); % wait for the audio to finish playing
- 	span_output(1) = [ ];
+    [wavedata, freq] = audioread('one.m4a'); % load sound file
+    InitializePsychSound(1); % initializes sound driver with low latency settings
+    pahandle = PsychPortAudio('Open', 3, 1, 1, freq, 2);
+    PsychPortAudio('FillBuffer', pahandle, [wavedata, wavedata]');
+    PsychPortAudio('Start', pahandle); %starts sound immediately
+    PsychPortAudio('Stop', pahandle, 1); % wait for the audio to finish playing
+ 	sound_output(1) = [];
 elseif sound_output(1) == 2
-[wavedata, freq] = audioread('two.m4a'); % load sound file
-InitializePsychSound(1); % initializes sound driver with low latency settings
-pahandle = PsychPortAudio('Open', 3, 1, 1, freq, 2);
-PsychPortAudio('FillBuffer', pahandle, [wavedata, wavedata]');
-PsychPortAudio('Start', pahandle); %starts sound immediately
-PsychPortAudio('Stop', pahandle, 1); % wait for the audio to finish playing
- 	span_output(1) = [ ];
+    [wavedata, freq] = audioread('two.m4a'); % load sound file
+    InitializePsychSound(1); % initializes sound driver with low latency settings
+    pahandle = PsychPortAudio('Open', 3, 1, 1, freq, 2);
+    PsychPortAudio('FillBuffer', pahandle, [wavedata, wavedata]');
+    PsychPortAudio('Start', pahandle); %starts sound immediately
+    PsychPortAudio('Stop', pahandle, 1); % wait for the audio to finish playing
+ 	sound_output(1) = [];
 elseif sound_output(1) == 3
-[wavedata, freq] = audioread('three.m4a'); % load sound file
-InitializePsychSound(1); % initializes sound driver with low latency settings
-pahandle = PsychPortAudio('Open', 3, 1, 1, freq, 2);
-PsychPortAudio('FillBuffer', pahandle, [wavedata, wavedata]');
-PsychPortAudio('Start', pahandle); %starts sound immediately
-PsychPortAudio('Stop', pahandle, 1); % wait for the audio to finish playing
- 	span_output(1) = [ ];
+    [wavedata, freq] = audioread('three.m4a'); % load sound file
+    InitializePsychSound(1); % initializes sound driver with low latency settings
+    pahandle = PsychPortAudio('Open', 3, 1, 1, freq, 2);
+    PsychPortAudio('FillBuffer', pahandle, [wavedata, wavedata]');
+    PsychPortAudio('Start', pahandle); %starts sound immediately
+    PsychPortAudio('Stop', pahandle, 1); % wait for the audio to finish playing
+ 	sound_output(1) = [];
 elseif sound_output(1) == 4
-[wavedata, freq] = audioread('four.m4a'); % load sound file
-InitializePsychSound(1); % initializes sound driver with low latency settings
-pahandle = PsychPortAudio('Open', 3, 1, 1, freq, 2);
-PsychPortAudio('FillBuffer', pahandle, [wavedata, wavedata]');
-PsychPortAudio('Start', pahandle); %starts sound immediately
-PsychPortAudio('Stop', pahandle, 1); % wait for the audio to finish playing
- 	span_output(1) = [ ];
+    [wavedata, freq] = audioread('four.m4a'); % load sound file
+    InitializePsychSound(1); % initializes sound driver with low latency settings
+    pahandle = PsychPortAudio('Open', 3, 1, 1, freq, 2);
+    PsychPortAudio('FillBuffer', pahandle, [wavedata, wavedata]');
+    PsychPortAudio('Start', pahandle); %starts sound immediately
+    PsychPortAudio('Stop', pahandle, 1); % wait for the audio to finish playing
+ 	sound_output(1) = [];
 elseif sound_output(1) == 5
-[wavedata, freq] = audioread('five.m4a'); % load sound file
-InitializePsychSound(1); % initializes sound driver with low latency settings
-pahandle = PsychPortAudio('Open', 3, 1, 1, freq, 2);
-PsychPortAudio('FillBuffer', pahandle, [wavedata, wavedata]');
-PsychPortAudio('Start', pahandle); %starts sound immediately
-PsychPortAudio('Stop', pahandle, 1); % wait for the audio to finish playing
- 	span_output(1) = [ ];
+    [wavedata, freq] = audioread('five.m4a'); % load sound file
+    InitializePsychSound(1); % initializes sound driver with low latency settings
+    pahandle = PsychPortAudio('Open', 3, 1, 1, freq, 2);
+    PsychPortAudio('FillBuffer', pahandle, [wavedata, wavedata]');
+    PsychPortAudio('Start', pahandle); %starts sound immediately
+    PsychPortAudio('Stop', pahandle, 1); % wait for the audio to finish playing
+ 	sound_output(1) = [];
 elseif sound_output(1) == 6
-[wavedata, freq] = audioread('six.m4a'); % load sound file
-InitializePsychSound(1); % initializes sound driver with low latency settings
-pahandle = PsychPortAudio('Open', 3, 1, 1, freq, 2);
-PsychPortAudio('FillBuffer', pahandle, [wavedata, wavedata]');
-PsychPortAudio('Start', pahandle); %starts sound immediately
-PsychPortAudio('Stop', pahandle, 1); % wait for the audio to finish playing
- 	span_output(1) = [ ];
+    [wavedata, freq] = audioread('six.m4a'); % load sound file
+    InitializePsychSound(1); % initializes sound driver with low latency settings
+    pahandle = PsychPortAudio('Open', 3, 1, 1, freq, 2);
+    PsychPortAudio('FillBuffer', pahandle, [wavedata, wavedata]');
+    PsychPortAudio('Start', pahandle); %starts sound immediately
+    PsychPortAudio('Stop', pahandle, 1); % wait for the audio to finish playing
+ 	sound_output(1) = [];
 elseif sound_output(1) == 7
-[wavedata, freq] = audioread('seven.m4a'); % load sound file
-InitializePsychSound(1); % initializes sound driver with low latency settings
-pahandle = PsychPortAudio('Open', 3, 1, 1, freq, 2);
-PsychPortAudio('FillBuffer', pahandle, [wavedata, wavedata]');
-PsychPortAudio('Start', pahandle); %starts sound immediately
-PsychPortAudio('Stop', pahandle, 1); % wait for the audio to finish playing
- 	span_output(1) = [ ];
+    [wavedata, freq] = audioread('seven.m4a'); % load sound file
+    InitializePsychSound(1); % initializes sound driver with low latency settings
+    pahandle = PsychPortAudio('Open', 3, 1, 1, freq, 2);
+    PsychPortAudio('FillBuffer', pahandle, [wavedata, wavedata]');
+    PsychPortAudio('Start', pahandle); %starts sound immediately
+    PsychPortAudio('Stop', pahandle, 1); % wait for the audio to finish playing
+ 	sound_output(1) = [];
 elseif sound_output(1) == 8
-[wavedata, freq] = audioread('eight.m4a'); % load sound file
-InitializePsychSound(1); % initializes sound driver with low latency settings
-pahandle = PsychPortAudio('Open', 3, 1, 1, freq, 2);
-PsychPortAudio('FillBuffer', pahandle, [wavedata, wavedata]');
-PsychPortAudio('Start', pahandle); %starts sound immediately
-PsychPortAudio('Stop', pahandle, 1); % wait for the audio to finish playing
- 	sound_output(1) = [ ];
+    [wavedata, freq] = audioread('eight.m4a'); % load sound file
+    InitializePsychSound(1); % initializes sound driver with low latency settings
+    pahandle = PsychPortAudio('Open', 3, 1, 1, freq, 2);
+    PsychPortAudio('FillBuffer', pahandle, [wavedata, wavedata]');
+    PsychPortAudio('Start', pahandle); %starts sound immediately
+    PsychPortAudio('Stop', pahandle, 1); % wait for the audio to finish playing
+ 	sound_output(1) = [];
 else
-[wavedata, freq] = audioread('nine.m4a'); % load sound file
-InitializePsychSound(1); % initializes sound driver with low latency settings
-pahandle = PsychPortAudio('Open', 3, 1, 1, freq, 2);
-PsychPortAudio('FillBuffer', pahandle, [wavedata, wavedata]');
-PsychPortAudio('Start', pahandle); %starts sound immediately
-PsychPortAudio('Stop', pahandle, 1); % wait for the audio to finish playing
- 	sound_output(1) = [ ];
+    [wavedata, freq] = audioread('nine.m4a'); % load sound file
+    InitializePsychSound(1); % initializes sound driver with low latency settings
+    pahandle = PsychPortAudio('Open', 3, 1, 1, freq, 2);
+    PsychPortAudio('FillBuffer', pahandle, [wavedata, wavedata]');
+    PsychPortAudio('Start', pahandle); %starts sound immediately
+    PsychPortAudio('Stop', pahandle, 1); % wait for the audio to finish playing
+ 	sound_output(1) = [];
 end
 PsychPortAudio('Close', pahandle); % Close the audio device
+end 
 
 %input text code 
 span_input = str2num(GetEchoString(window, 'Type digits here:', 500, 675, black, white));
@@ -141,7 +142,7 @@ end
 x = max(correct);
 disp([num2str(x), ' is the max number memorized'])
  
-%KbStrokeWait;
+
 sca;
 
 
