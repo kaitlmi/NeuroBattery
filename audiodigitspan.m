@@ -21,7 +21,7 @@ rr = FrameRate(window);
 % variables
 score_span = 0 ; %score 
 count = 1 ; %number of rounds participant is on
-rounds = 10; %total number of rounds set by tester, 7-9 usually max
+rounds = 3; %total number of rounds set by tester, 7-9 usually max
 error_span = 0; %number of errors
 correct = zeros(1, rounds);
  
@@ -128,7 +128,11 @@ end
 %input text code 
 span_input = str2num(GetEchoString(window, 'Type digits here:', 500, 675, black, white));
  
-   	if  span_output ~= span_input 
+  if  length(span_output) ~= length(span_input)
+        error_span = error_span + 1;
+        disp(['Round ', num2str(count), ' was incorrect'])
+        count = count + 1; 
+    elseif span_output ~= span_input 
 		error_span = error_span + 1;
         disp(['Round ', num2str(count), ' was incorrect'])
         count = count + 1; 
@@ -142,7 +146,7 @@ end
 x = max(correct);
 disp([num2str(x), ' is the max number memorized'])
  
-
+%KbStrokeWait;
 sca;
 
 
