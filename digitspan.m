@@ -27,6 +27,7 @@ correct = zeros(1, rounds);
 
 
 % Introductory explanation of the digitspantask
+[screenXpixels, screenYpixels] = Screen('WindowSize', window);
 DrawFormattedText(window, 'Welcome to the visuospatial digit span experiment!', 'center', screenYpixels * 0.5, white);
 Screen('Flip', window);
 WaitSecs(3);
@@ -50,7 +51,7 @@ topPriorityLevel = MaxPriority(window);
 Priority(topPriorityLevel);
 numSecs = 1; % duration each frame will be displayed for
 vbl = Screen('Flip', window, numSecs); 
-[screenXpixels, screenYpixels] = Screen('WindowSize', window);
+%[screenXpixels, screenYpixels] = Screen('WindowSize', window);
 Screen('TextSize', window, 70);
 Screen('TextFont', window, 'Helvetica');
 DrawFormattedText(window, num2str(span_output) ,...
