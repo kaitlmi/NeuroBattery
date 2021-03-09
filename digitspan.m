@@ -25,12 +25,21 @@ rounds = 5; %total number of rounds set by tester, 7-9 usually max
 error_span = 0; %number of errors
 correct = zeros(1, rounds);
 
-%code note: start fitting these vars into loop??
 
-DrawFormattedText(window, 'Directions: Type the numbers you see and press enter when done.' ,...
+% Introductory explanation of the Elevator Experiment
+DrawFormattedText(window, 'Welcome to the visuospatial digit span experiment!', 'center', screenYpixels * 0.5, white);
+Screen('Flip', window);
+WaitSecs(3);
+DrawFormattedText(window, ['In this task, your goal' '\n is to memorize as many digits as possible'], 'center', 'center', white);
+Screen('Flip', window);
+WaitSecs(3.5);
+DrawFormattedText(window, 'Type the numbers you see and press enter when done.' ,...
 'center', 'center');
 Screen('Flip', window, 1);
 WaitSecs(2);
+DrawFormattedText(window, ['Let''s practice'], 'center', 'center', white);
+Screen('Flip', window);
+WaitSecs(3.5);;
 
 
 while count <= rounds %actual loop
@@ -77,5 +86,4 @@ end
 x = max(correct);
 disp([num2str(x), ' is the max number memorized'])
 
-%KbStrokeWait;
 sca;

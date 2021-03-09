@@ -146,7 +146,7 @@ end
 x = max(correct);
 disp([num2str(x), ' is the max number memorized'])
  
-%KbStrokeWait;
+
 sca;
 
 
