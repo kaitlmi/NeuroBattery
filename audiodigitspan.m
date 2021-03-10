@@ -24,11 +24,73 @@ count = 1 ; %number of rounds participant is on
 rounds = 3; %total number of rounds set by tester, 7-9 usually max
 error_span = 0; %number of errors
 correct = zeros(1, rounds);
- 
-DrawFormattedText(window, 'Directions: Type the numbers you hear and press enter when done.' ,...
+
+% Directions and Welcome of the digitspantask
+[screenXpixels, screenYpixels] = Screen('WindowSize', window);
+DrawFormattedText(window, 'Welcome to the audio loop digit span experiment!', 'center', screenYpixels * 0.5, white);
+Screen('Flip', window);
+WaitSecs(3.5);
+DrawFormattedText(window, ['In this task, your goal' '\n is to memorize as many digits you hear as possible'], 'center', 'center', white);
+Screen('Flip', window);
+WaitSecs(4.0);
+DrawFormattedText(window, 'Type the numbers you hear and press enter when done.' ,...
 'center', 'center');
 Screen('Flip', window, 1);
-WaitSecs(2);
+WaitSecs(3.5);
+DrawFormattedText(window, 'Let''s practice!', 'center', 'center', white);
+Screen('Flip', window);
+WaitSecs(3.5);
+
+%%%Example run%%%
+% plays sound "1 2 3"
+[wavedata, freq] = audioread('one.m4a'); % load sound file
+InitializePsychSound(1); % initializes sound driver with low latency settings
+pahandle = PsychPortAudio('Open', 3, 1, 1, freq, 2);
+PsychPortAudio('FillBuffer', pahandle, [wavedata, wavedata]');
+PsychPortAudio('Start', pahandle); %starts sound immediately
+PsychPortAudio('Stop', pahandle, 1); % wait for the audio to finish playing
+[wavedata, freq] = audioread('two.m4a'); % load sound file
+InitializePsychSound(1); % initializes sound driver with low latency settings
+pahandle = PsychPortAudio('Open', 3, 1, 1, freq, 2);
+PsychPortAudio('FillBuffer', pahandle, [wavedata, wavedata]');
+PsychPortAudio('Start', pahandle); %starts sound immediately
+PsychPortAudio('Stop', pahandle, 1); % wait for the audio to finish playing
+[wavedata, freq] = audioread('three.m4a'); % load sound file
+InitializePsychSound(1); % initializes sound driver with low latency settings
+pahandle = PsychPortAudio('Open', 3, 1, 1, freq, 2);
+PsychPortAudio('FillBuffer', pahandle, [wavedata, wavedata]');
+PsychPortAudio('Start', pahandle); %starts sound immediately
+PsychPortAudio('Stop', pahandle, 1); % wait for the audio to finish playing
+%requests input from participant
+test_input = str2num(GetEchoString(window, 'Type digits here:', 45, 675, black, white));
+	if  length(test_input) ~= length(test_output) 
+        DrawFormattedText(window, 'Hm... That''s not quite right.', 'center', 'center');
+        Screen('Flip', window);
+        WaitSecs(3.5);
+        DrawFormattedText(window, 'The correct response was 1 2 3', 'center', 'center');
+        Screen('Flip', window);
+        WaitSecs(2.5);
+         DrawFormattedText(window, 'Now, onto the real task.', 'center', 'center');
+        Screen('Flip', window);
+        WaitSecs(3.5);
+    elseif test_input ~= test_output 
+		DrawFormattedText(window, 'Hm... That''s not quite right.', 'center', 'center');
+        Screen('Flip', window);
+        WaitSecs(3.5);
+        DrawFormattedText(window, 'The correct response was 1 2 3', 'center', 'center');
+        Screen('Flip', window);
+        WaitSecs(2.5);
+        DrawFormattedText(window, 'Now, onto the real task.', 'center', 'center');
+        Screen('Flip', window);
+        WaitSecs(3.5);
+    else
+		DrawFormattedText(window, 'Nice! Now, onto the real task.', 'center', 'center');
+        Screen('Flip', window);
+        WaitSecs(3.5);
+        DrawFormattedText(window, 'Are you ready? Let''s do it.', 'center', 'center');
+        Screen('Flip', window);
+        WaitSecs(3.5);
+    end
 
 while count <= rounds %actual loop
 span_output = randi( 9, 1, count); %output of digit span
