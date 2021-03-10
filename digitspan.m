@@ -22,12 +22,12 @@ rr = FrameRate(window);
 % variables
 score_span = 0 ; %score 
 count = 1 ; %number of rounds participant is on
-rounds = 5; %total number of rounds set by tester, 7-9 usually max
+rounds = 12; %total number of rounds set by tester, 7-9 usually max
 error_span = 0; %number of errors
 correct = zeros(1, rounds);
 
 
-% Introductory explanation of the digitspantask
+% Directions and Welcome of the digitspantask
 [screenXpixels, screenYpixels] = Screen('WindowSize', window);
 DrawFormattedText(window, 'Welcome to the visuospatial digit span experiment!', 'center', screenYpixels * 0.5, white);
 Screen('Flip', window);
@@ -43,7 +43,7 @@ DrawFormattedText(window, 'Let''s practice', 'center', 'center', white);
 Screen('Flip', window);
 WaitSecs(3.5);
 
-%example run
+%Example run
 Screen('TextSize', window, 70);
 Screen('TextFont', window, 'Helvetica');
 test_output = [1:3];
@@ -71,10 +71,13 @@ test_input = str2num(GetEchoString(window, 'Type digits here:', 45, 675, black, 
         WaitSecs(3.5);
     end
     
+%%%% Actual Task %%%     
 while count <= rounds %actual loop
 span_output = randi( 9, 1, count); %output of digit span
-%str_span_output = num2str(span_output); %string version of output of digit span
-%stimuli text 
+
+stimuli text 
+
+%window setup
 topPriorityLevel = MaxPriority(window);
 Priority(topPriorityLevel);
 numSecs = 1; % duration each frame will be displayed for
@@ -86,7 +89,7 @@ DrawFormattedText(window, num2str(span_output) ,...
 'center', screenYpixels * 0.5, [0 0 1]);
     if count <= 5
        Screen('Flip', window, vbl + (2*numSecs) - ifi/2);
-       WaitSecs(1);
+       WaitSecs(1); %designed bc longer stimuli lines get longer reading time
     elseif count <= 9
        Screen('Flip', window, vbl + (2*numSecs) - ifi/2);
        WaitSecs(1.75);
@@ -94,6 +97,7 @@ DrawFormattedText(window, num2str(span_output) ,...
        Screen('Flip', window, vbl + (2*numSecs) - ifi/2);
        WaitSecs(2.3);
     end
+    
 %input text code 
 span_input = str2num(GetEchoString(window, 'Type digits here:', 45, 675, black, white));
 
@@ -114,5 +118,5 @@ span_input = str2num(GetEchoString(window, 'Type digits here:', 45, 675, black, 
 end
 x = max(correct);
 disp([num2str(x), ' is the max number memorized'])
-
+disp(score_span)
 sca;
