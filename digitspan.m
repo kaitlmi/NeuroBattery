@@ -1,6 +1,7 @@
-% Clears workspace and variables
+% Clears command window, workspace, and variables
 sca;
 close all;
+clc;
 clearvars;
 Screen('Preference', 'SkipSyncTests',1);
 
@@ -38,29 +39,38 @@ DrawFormattedText(window, 'Type the numbers you see and press enter when done.' 
 'center', 'center');
 Screen('Flip', window, 1);
 WaitSecs(3.5);
-DrawFormattedText(window, ['Let''s practice'], 'center', 'center', white);
+DrawFormattedText(window, 'Let''s practice', 'center', 'center', white);
 Screen('Flip', window);
 WaitSecs(3.5);
+
 %example run
 Screen('TextSize', window, 70);
 Screen('TextFont', window, 'Helvetica');
-DrawFormattedText(window, '1 2 3' ,'center', screenYpixels * 0.5, [0 0 1]);
+test_output = [1:3];
+DrawFormattedText(window, num2str(test_output) ,'center', screenYpixels * 0.5, [0 0 1]);
 Screen('Flip', window);
 WaitSecs(1);
-test_input = GetEchoString(window, 'Type digits here:', 45, 675, black, white);
-	if  test_input ~= '1 2 3' 
-		DrawFormattedText(window, ['Hm... That''s not quite right.'], 'center', 'center', white);
+test_input = str2num(GetEchoString(window, 'Type digits here:', 45, 675, black, white));
+	if  length(test_input) ~= length(test_output) 
+        DrawFormattedText(window, 'Hm... That''s not quite right.', 'center', 'center');
         Screen('Flip', window);
         WaitSecs(3.5);
-        DrawFormattedText(window, ['The correct response was 1 2 3'], 'center', 'center', white);
+        DrawFormattedText(window, 'The correct response was 1 2 3', 'center', 'center');
+        Screen('Flip', window);
+        WaitSecs(2.5);
+    elseif test_input ~= test_output 
+		DrawFormattedText(window, 'Hm... That''s not quite right.', 'center', 'center');
+        Screen('Flip', window);
+        WaitSecs(3.5);
+        DrawFormattedText(window, 'The correct response was 1 2 3', 'center', 'center');
         Screen('Flip', window);
         WaitSecs(2.5);
     else
-		DrawFormattedText(window, ['Great work. Now onto the real task.'], 'center', 'center', white);
+		DrawFormattedText(window, 'Great work. Now onto the real task.', 'center', 'center');
         Screen('Flip', window);
         WaitSecs(3.5);
     end
-
+    
 while count <= rounds %actual loop
 span_output = randi( 9, 1, count); %output of digit span
 %str_span_output = num2str(span_output); %string version of output of digit span
