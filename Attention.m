@@ -37,6 +37,7 @@ PsychPortAudio('FillBuffer', pahandle2, [wavedata2, wavedata2]');
 Screen('TextSize', window, 70);
 
 % Introductory explanation of the Elevator Experiment
+% The text will flash on the screen with a black background and white text.
 DrawFormattedText(window, 'Welcome to the Experiment!', 'center', 'center', white);
 Screen('Flip', window);
 WaitSecs(3);
@@ -46,7 +47,7 @@ WaitSecs(4);
 DrawFormattedText(window, ['In this task, your goal' '\n is to guess which floor you are on' '\n based on the number of beeps you hear' '\n and the direction of the elevator arrow.'], 'center', 'center', white);
 Screen('Flip', window);
 WaitSecs(6);
-DrawFormattedText(window, 'The beep will sound like this:', 'center', 'center', white);
+DrawFormattedText(window, 'The beep will sound like this:', 'center', 'center', white); 
 Screen('Flip', window);
 WaitSecs(2);
 % Playing a sample of the elevator sound audio
@@ -70,30 +71,35 @@ Screen('Flip', window);
 WaitSecs(2);
 DrawFormattedText(window, 'Press the space key to start', 'center', 'center', white);
 Screen('Flip', window);
-KbStrokeWait;
+KbStrokeWait; % Wait until the space key is pressed. 
 
 % Trial Run of the experiment
+% Displays what floor you start on. 
 DrawFormattedText(window, '10th floor', 'center', 'center', white);
 Screen('Flip', window);
 WaitSecs(2);
 Screen('DrawTexture', window, imageTexture_up, [], [], 0); % Sets up image of an elevator going up
-Screen('Flip', window);
-% Plays 4 beeps going up. 
+Screen('Flip', window); % Flips to the image of an elevator going up.
 WaitSecs(1);
+% Plays 4 beeps going up.
 PsychPortAudio('Start', pahandle1);
 PsychPortAudio('Stop', pahandle1, 1,1,4);
-% Plays 2 beeps going down. 
 WaitSecs(2);
-Screen('DrawTexture', window, imageTexture_down, [], [], 0);
-Screen('Flip', window);
+Screen('DrawTexture', window, imageTexture_down, [], [], 0); % Sets up image of an elevator going down. 
+Screen('Flip', window); % Flips to the image of an elevator going down.
+% Plays 2 beeps going down. 
 PsychPortAudio('Start', pahandle1);
 PsychPortAudio('Stop', pahandle1, 1,1,2);
 
+% Participant explanation on how to submit the answer.
+DrawFormattedText(window, 'Type your response and press enter.', 'center', 'center', white);
+Screen('Flip', window);
+WaitSecs(2);
 % Collecting the Response.
 Test_Response = GetEchoString(window, 'What floor are you on?', 100, 450, white, black);
 % Assessing whether the answer is right or not with messages. 
 % Message if the answer is correct.
-if (Test_Response == num2str(12))
+if (Test_Response == num2str(12)) % If Test_response is equal to 12
     Screen('Flip', window);
     DrawFormattedText(window, 'Nice Job! That is correct!', 'center', 'center', white);
     Screen('Flip', window);
@@ -103,22 +109,24 @@ if (Test_Response == num2str(12))
     WaitSecs(3);
     DrawFormattedText(window, 'Press the space key to begin', 'center', 'center', white);
     Screen('Flip', window);
-    KbStrokeWait
+    KbStrokeWait % Wait until the space key is pressed.
 % Message if the answer is incorrect.
-else 
+else % If Test_response is not equal to 12. 
     Screen('Flip', window);
     DrawFormattedText(window, 'The correct response is 12.', 'center', 'center', white);
     Screen('Flip', window);
     WaitSecs(2);
-    DrawFormattedText(window, ['Starting from the 10th floor,' '\n there were 4 beeps going up' '\n and 2 beeps going down.' '\n That is the 10+4-2 which is the 12th floor'], 'center', 'center', white);
+    % Explaining how to get the right answer. 
+    DrawFormattedText(window, ['Starting from the 10th floor,' '\n there were 4 beeps going up' '\n and 2 beeps going down.' '\n That is 10+4-2 which is the 12th floor'], 'center', 'center', white);
     Screen('Flip', window);
     WaitSecs(6);
+    % Entering the real experiment message. 
     DrawFormattedText(window, 'Lets enter the real experiment.', 'center', 'center', white);
     Screen('Flip', window);
     WaitSecs(2);
     DrawFormattedText(window, 'Press any key to begin', 'center', 'center', white);
     Screen('Flip', window);
-    KbStrokeWait
+    KbStrokeWait % Wait until the space key is pressed.
 end
 
 correct_round = 0; % Number of correctly identified floors
@@ -154,11 +162,17 @@ for Round_Number = 1:3 % 3 total rounds of the experiment
         % Calculating what floor you would be on
         Floor_Number = Floor_Number - Random_Number(jj+1);
     end
+    % Participant explanation on how to submit the answer.
+    DrawFormattedText(window, 'Type your response and press enter.', 'center', 'center', white);
+    Screen('Flip', window);
+    WaitSecs(2);
+    % Collects participant response. 
     Response = GetEchoString(window, 'What floor are you on?', 100, 450, white, black);
-    if num2str(Floor_Number) == Response
-        correct_round = correct_round + 1;
-    else 
-        correct_round = correct_round + 0;
+    % Calculates how many rounds were correct
+    if num2str(Floor_Number) == Response % if Response is equal to Floor_Number
+        correct_round = correct_round + 1; % Add one to variable correct_round
+    else % if Response is not equal to Floor_Number
+        correct_round = correct_round + 0; % Add zero to variable correct_round
     end
     WaitSecs(2);
 end
@@ -168,6 +182,7 @@ Screen('Flip', window);
 DrawFormattedText(window, ['You got ' num2str(correct_round) ' rounds correct.'] , 'center', 'center', white);
 Screen('Flip', window);
 WaitSecs(3);
+% Explanation for the next kind of Elevator Counting Task 
 DrawFormattedText(window, 'Lets increase the difficulty of the test.', 'center', 'center', white);
 Screen('Flip', window);
 WaitSecs(2);
@@ -177,7 +192,7 @@ WaitSecs(4);
 DrawFormattedText(window, 'It sounds like this:', 'center', 'center', white);
 Screen('Flip', window);
 WaitSecs(2);
-% Playing a sample of the distracting sound.
+% Playing a sample of the distracting sound for 1 second.
 PsychPortAudio('Start', pahandle2);
 PsychPortAudio('Stop', pahandle2, 1,1);
 % More introductory words. 
@@ -186,7 +201,7 @@ Screen('Flip', window);
 WaitSecs(2);
 DrawFormattedText(window, 'Press the space key to start', 'center', 'center', white);
 Screen('Flip', window);
-KbStrokeWait;
+KbStrokeWait; % Wait until the space key is pressed.
 
 % Trial Run of the second experiment. 
 % Shows what floor you will start on. 
@@ -208,12 +223,15 @@ WaitSecs(1);
 PsychPortAudio('Start', pahandle1);
 PsychPortAudio('Stop', pahandle1, 1,1,2);
 
+DrawFormattedText(window, 'Type your response and press enter.', 'center', 'center', white);
+Screen('Flip', window);
+WaitSecs(2);
 % Collecting the Response.
 Test_Response = GetEchoString(window, 'What floor are you on?', 100, 450, white, black);
 
 % Assessing whether the answer is right or not with messages. 
 % Message if the answer is correct.
-if (Test_Response == num2str(16))
+if (Test_Response == num2str(16)) % If Test_response is equal to 16
     Screen('Flip', window);
     DrawFormattedText(window, 'Nice Job! That is correct!', 'center', 'center', white);
     Screen('Flip', window);
@@ -223,16 +241,18 @@ if (Test_Response == num2str(16))
     WaitSecs(3);
     DrawFormattedText(window, 'Press the space key to begin.', 'center', 'center', white);
     Screen('Flip', window);
-    KbStrokeWait
+    KbStrokeWait % Wait until the space key is pressed.
 % Message if the answer is incorrect.
-else 
+else % If Test_response is not equal to 16
     Screen('Flip', window);
     DrawFormattedText(window, 'The correct response is 16.', 'center', 'center', white);
     Screen('Flip', window);
     WaitSecs(2);
+    % Explaining how to get the correct answer.
     DrawFormattedText(window, ['Starting from the 10th floor,' '\n there were 4 beeps going up' '\n a distracting sound,' 'and 2 beeps going up.' '\n That is 10+4+0+2 which is the 16th floor'], 'center', 'center', white);
     Screen('Flip', window);
     WaitSecs(6);
+    % Entering the real experiment message. 
     DrawFormattedText(window, 'Lets enter the real experiment.', 'center', 'center', white);
     Screen('Flip', window);
     WaitSecs(3);
@@ -241,7 +261,7 @@ else
     WaitSecs(3);
     DrawFormattedText(window, 'Press any key to begin', 'center', 'center', white);
     Screen('Flip', window);
-    KbStrokeWait
+    KbStrokeWait % Wait until the space key is pressed.
 end
 
 correct_round = 0; % Number of correctly identified floors
@@ -254,7 +274,7 @@ for Round_Number = 1:3 % 3 total rounds of the experiment
     Random_iteration = randi(3,1,1); % Generates a random integer from 1-3. 
     for jj = 1:Random_iteration % 1-3 repeats of a block with one block having an elevator going up and going down. 
         Random_Number = randi(5,1,6); % Generating a vector of 6 random numbers from 1-5. Values used to determine the number of beeps.
-        Random_Number_distracting = randi(2,1,4); % Generating a vector of 4 random numbers that are either 1 or 2. 
+        Random_Number_distracting = randi(2,1,4); % Generating a vector of 4 random numbers that are either 1 or 2 for distracting sounds. 
         % Switching to an up arrow elevator
         Screen('DrawTexture', window, imageTexture_up, [], [], 0);
         Screen('Flip', window);
@@ -290,19 +310,28 @@ for Round_Number = 1:3 % 3 total rounds of the experiment
         PsychPortAudio('Start', pahandle2);
         PsychPortAudio('Stop', pahandle2, 1, 1, Random_Number_distracting(jj+1));
     end
+    
+    DrawFormattedText(window, 'Type your response and press enter.', 'center', 'center', white);
+    Screen('Flip', window);
+    WaitSecs(2);
+    % Collecting the response
     Response = GetEchoString(window, 'What floor are you on?', 100, 450, white, black);
-    if num2str(Floor_Number) == Response
-        correct_round = correct_round + 1;
-    else 
-        correct_round = correct_round + 0;
+    % Counting how many rounds were correct. 
+    if num2str(Floor_Number) == Response % If Response is equal to Floor_Number
+        correct_round = correct_round + 1; % Add one to variable correct_round
+    else % Any other answer 
+        correct_round = correct_round + 0; % Add zero to variable correct_round
     end
     WaitSecs(2);
 end
 Screen('Flip', window);
+% Tells participant how many rounds were correct. 
 DrawFormattedText(window, ['You got ' num2str(correct_round) ' rounds correct.'] , 'center', 'center', white);
 Screen('Flip', window);
 WaitSecs(2);
+% Thanks for participating message
 DrawFormattedText(window, 'Thanks for participating!', 'center', 'center', white);
 Screen('Flip', window);
 WaitSecs(2);
+% Close window
 sca;
