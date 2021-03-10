@@ -1,6 +1,7 @@
 % Clears workspace and variables
 sca;
 close all;
+clc;
 clearvars;
 Screen('Preference', 'SkipSyncTests',1);
  
@@ -37,6 +38,9 @@ DrawFormattedText(window, 'Type the numbers you hear and press enter when done.'
 'center', 'center');
 Screen('Flip', window, 1);
 WaitSecs(3.5);
+DrawFormattedText(window, 'Be sure to put spaces between your numbers.', 'center', 'center');
+Screen('Flip', window, 1);
+WaitSecs(3.5);
 DrawFormattedText(window, 'Let''s practice!', 'center', 'center', white);
 Screen('Flip', window);
 WaitSecs(3.5);
@@ -62,6 +66,7 @@ PsychPortAudio('FillBuffer', pahandle, [wavedata, wavedata]');
 PsychPortAudio('Start', pahandle); %starts sound immediately
 PsychPortAudio('Stop', pahandle, 1); % wait for the audio to finish playing
 %requests input from participant
+test_output = [1:3];
 test_input = str2num(GetEchoString(window, 'Type digits here:', 45, 675, black, white));
 	if  length(test_input) ~= length(test_output) 
         DrawFormattedText(window, 'Hm... That''s not quite right.', 'center', 'center');
@@ -70,6 +75,9 @@ test_input = str2num(GetEchoString(window, 'Type digits here:', 45, 675, black, 
         DrawFormattedText(window, 'The correct response was 1 2 3', 'center', 'center');
         Screen('Flip', window);
         WaitSecs(2.5);
+        DrawFormattedText(window, 'Make sure you put spaces between your numbers', 'center', 'center');
+        Screen('Flip', window);
+        WaitSecs(3.5);
          DrawFormattedText(window, 'Now, onto the real task.', 'center', 'center');
         Screen('Flip', window);
         WaitSecs(3.5);
@@ -78,6 +86,9 @@ test_input = str2num(GetEchoString(window, 'Type digits here:', 45, 675, black, 
         Screen('Flip', window);
         WaitSecs(3.5);
         DrawFormattedText(window, 'The correct response was 1 2 3', 'center', 'center');
+        Screen('Flip', window);
+        WaitSecs(3.5);
+        DrawFormattedText(window, 'Make sure you put spaces between your numbers', 'center', 'center');
         Screen('Flip', window);
         WaitSecs(2.5);
         DrawFormattedText(window, 'Now, onto the real task.', 'center', 'center');
@@ -94,6 +105,7 @@ test_input = str2num(GetEchoString(window, 'Type digits here:', 45, 675, black, 
 
 while count <= rounds %actual loop
 span_output = randi( 9, 1, count); %output of digit span
+disp(span_output)
 sound_output = span_output;
 
 %stimuli 
@@ -190,13 +202,15 @@ end
 %input text code 
 span_input = str2num(GetEchoString(window, 'Type digits here:', 500, 675, black, white));
  
-  if  length(span_output) ~= length(span_input)
+  if  length(span_input) ~= length(span_output)  
         error_span = error_span + 1;
         disp(['Round ', num2str(count), ' was incorrect'])
+        correct(count) = 0;
         count = count + 1; 
     elseif span_output ~= span_input 
 		error_span = error_span + 1;
         disp(['Round ', num2str(count), ' was incorrect'])
+        correct(count) = 0;
         count = count + 1; 
     else
 		score_span = score_span + 1;
@@ -205,11 +219,12 @@ span_input = str2num(GetEchoString(window, 'Type digits here:', 500, 675, black,
     end
     
 end
-x = max(correct);
-disp([num2str(x), ' is the max number memorized'])
- 
-
 sca;
 
+disp(correct)
+x = max(correct);
+disp([num2str(x), ' is the max number memorized'])
+disp(['the score is ', num2str(score_span)])
+disp(['the error score is ', num2str(error_span)])
 
 

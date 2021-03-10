@@ -39,6 +39,10 @@ DrawFormattedText(window, 'Type the numbers you see and press enter when done.' 
 'center', 'center');
 Screen('Flip', window, 1);
 WaitSecs(3.5);
+DrawFormattedText(window, 'Be sure to put spaces between your numbers.' ,...
+'center', 'center');
+Screen('Flip', window, 1);
+WaitSecs(3.5);
 DrawFormattedText(window, 'Let''s practice', 'center', 'center', white);
 Screen('Flip', window);
 WaitSecs(3.5);
@@ -75,7 +79,7 @@ test_input = str2num(GetEchoString(window, 'Type digits here:', 45, 675, black, 
 while count <= rounds %actual loop
 span_output = randi( 9, 1, count); %output of digit span
 
-stimuli text 
+%stimuli text 
 
 %window setup
 topPriorityLevel = MaxPriority(window);
