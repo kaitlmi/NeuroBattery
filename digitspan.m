@@ -40,7 +40,7 @@ Screen('Flip', window, 1);
 WaitSecs(2);
 DrawFormattedText(window, ['Let''s practice'], 'center', 'center', white);
 Screen('Flip', window);
-WaitSecs(3.5);;
+WaitSecs(3.5);
 
 
 while count <= rounds %actual loop
