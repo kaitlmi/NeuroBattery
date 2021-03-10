@@ -30,18 +30,36 @@ correct = zeros(1, rounds);
 [screenXpixels, screenYpixels] = Screen('WindowSize', window);
 DrawFormattedText(window, 'Welcome to the visuospatial digit span experiment!', 'center', screenYpixels * 0.5, white);
 Screen('Flip', window);
-WaitSecs(3);
+WaitSecs(3.5);
 DrawFormattedText(window, ['In this task, your goal' '\n is to memorize as many digits as possible'], 'center', 'center', white);
 Screen('Flip', window);
-WaitSecs(3.5);
+WaitSecs(4.0);
 DrawFormattedText(window, 'Type the numbers you see and press enter when done.' ,...
 'center', 'center');
 Screen('Flip', window, 1);
-WaitSecs(2);
+WaitSecs(3.5);
 DrawFormattedText(window, ['Let''s practice'], 'center', 'center', white);
 Screen('Flip', window);
 WaitSecs(3.5);
-
+%example run
+Screen('TextSize', window, 70);
+Screen('TextFont', window, 'Helvetica');
+DrawFormattedText(window, '1 2 3' ,'center', screenYpixels * 0.5, [0 0 1]);
+Screen('Flip', window);
+WaitSecs(1);
+test_input = GetEchoString(window, 'Type digits here:', 45, 675, black, white);
+	if  test_input ~= '1 2 3' 
+		DrawFormattedText(window, ['Hm... That''s not quite right.'], 'center', 'center', white);
+        Screen('Flip', window);
+        WaitSecs(3.5);
+        DrawFormattedText(window, ['The correct response was 1 2 3'], 'center', 'center', white);
+        Screen('Flip', window);
+        WaitSecs(2.5);
+    else
+		DrawFormattedText(window, ['Great work. Now onto the real task.'], 'center', 'center', white);
+        Screen('Flip', window);
+        WaitSecs(3.5);
+    end
 
 while count <= rounds %actual loop
 span_output = randi( 9, 1, count); %output of digit span
