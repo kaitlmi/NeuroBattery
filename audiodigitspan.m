@@ -68,7 +68,7 @@ PsychPortAudio('Stop', pahandle, 1); % wait for the audio to finish playing
 %requests input from participant
 test_output = [1:3];
 test_input = str2num(GetEchoString(window, 'Type digits here:', 45, 675, black, white));
-	if  length(test_input) ~= length(test_output) 
+    if  length(test_input) ~= length(test_output) %incorrect resp
         DrawFormattedText(window, 'Hm... That''s not quite right.', 'center', 'center');
         Screen('Flip', window);
         WaitSecs(3.5);
@@ -81,7 +81,7 @@ test_input = str2num(GetEchoString(window, 'Type digits here:', 45, 675, black, 
          DrawFormattedText(window, 'Now, onto the real task.', 'center', 'center');
         Screen('Flip', window);
         WaitSecs(3.5);
-    elseif test_input ~= test_output 
+    elseif test_input ~= test_output %incorrect resp
 		DrawFormattedText(window, 'Hm... That''s not quite right.', 'center', 'center');
         Screen('Flip', window);
         WaitSecs(3.5);
@@ -94,7 +94,7 @@ test_input = str2num(GetEchoString(window, 'Type digits here:', 45, 675, black, 
         DrawFormattedText(window, 'Now, onto the real task.', 'center', 'center');
         Screen('Flip', window);
         WaitSecs(3.5);
-    else
+   else %correct resp
 		DrawFormattedText(window, 'Nice! Now, onto the real task.', 'center', 'center');
         Screen('Flip', window);
         WaitSecs(3.5);
@@ -202,21 +202,21 @@ end
 %input text code 
 span_input = str2num(GetEchoString(window, 'Type digits here:', 500, 675, black, white));
  
-  if  length(span_input) ~= length(span_output)  
+  if  length(span_input) ~= length(span_output)  %incorrect resp
         error_span = error_span + 1;
         disp(['Round ', num2str(count), ' was incorrect'])
         correct(count) = 0;
         count = count + 1; 
-    elseif span_output ~= span_input 
+  elseif span_output ~= span_input %incorrect resp
 		error_span = error_span + 1;
         disp(['Round ', num2str(count), ' was incorrect'])
         correct(count) = 0;
         count = count + 1; 
-    else
+  else %correct resp
 		score_span = score_span + 1;
         correct(count) = count;
         count = count + 1; 
-    end
+  end
     
 end
 sca;
