@@ -38,6 +38,7 @@ Screen('TextSize', window, 70);
 
 % Introductory explanation of the Elevator Experiment
 % The text will flash on the screen with a black background and white text.
+% WaitSecs(n) waits on that screen for n seconds. 
 DrawFormattedText(window, 'Welcome to the Experiment!', 'center', 'center', white);
 Screen('Flip', window);
 WaitSecs(3);
@@ -91,11 +92,11 @@ Screen('Flip', window); % Flips to the image of an elevator going down.
 PsychPortAudio('Start', pahandle1);
 PsychPortAudio('Stop', pahandle1, 1,1,2);
 
-% Participant explanation on how to submit the answer.
+% Explanation to the participant on how to submit the response.
 DrawFormattedText(window, 'Type your response and press enter.', 'center', 'center', white);
 Screen('Flip', window);
 WaitSecs(2);
-% Collecting the Response.
+% Collecting the Response from participant.
 Test_Response = GetEchoString(window, 'What floor are you on?', 100, 450, white, black);
 % Assessing whether the answer is right or not with messages. 
 % Message if the answer is correct.
@@ -104,6 +105,7 @@ if (Test_Response == num2str(12)) % If Test_response is equal to 12
     DrawFormattedText(window, 'Nice Job! That is correct!', 'center', 'center', white);
     Screen('Flip', window);
     WaitSecs(2);
+    % Entering the real experiment message. 
     DrawFormattedText(window, 'Lets enter the real experiment', 'center', 'center', white);
     Screen('Flip', window);
     WaitSecs(3);
@@ -132,12 +134,13 @@ end
 correct_round = 0; % Number of correctly identified floors
 for Round_Number = 1:3 % 3 total rounds of the experiment
     Floor_Number = 10; % Starting Floor Level
-    Screen('Flip', window);
+    Screen('Flip', window); % Flip to a blank black screen. 
+    % Displays what floor you start on. 
     DrawFormattedText(window, '10th floor', 'center', 'center', white);
     Screen('Flip', window);
     WaitSecs(2);
     Random_iteration = randi(3,1,1); % Generates a random number from 1-3. 
-    for jj = 1:Random_iteration % 1-3 repeats of a block with one block having an elevator going up and going down
+    for jj = 1:Random_iteration % 1-3 plays of a block with one block having an elevator going up and going down
         Random_Number = randi(10,1,4); % Generating a vector of 4 random numbers from 1-10.
         % Switching to an up arrow elevator
         Screen('DrawTexture', window, imageTexture_up, [], [], 0);
@@ -148,7 +151,7 @@ for Round_Number = 1:3 % 3 total rounds of the experiment
         PsychPortAudio('Start', pahandle1);
         PsychPortAudio('Stop', pahandle1, 1,1, Random_Number(jj)); 
         WaitSecs(1);
-        % Calculating what floor you would be on
+        % Calculating what floor you would be on after going up.
         Floor_Number = Floor_Number + Random_Number(jj);
         % Switching to a down elevator
         Screen('DrawTexture', window, imageTexture_down, [], [], 0);
@@ -159,7 +162,7 @@ for Round_Number = 1:3 % 3 total rounds of the experiment
         PsychPortAudio('Start', pahandle1);
         PsychPortAudio('Stop', pahandle1, 1,1, Random_Number(jj+1));
         WaitSecs(1);
-        % Calculating what floor you would be on
+        % Calculating what floor you would be on after going down. 
         Floor_Number = Floor_Number - Random_Number(jj+1);
     end
     % Participant explanation on how to submit the answer.
@@ -222,7 +225,7 @@ PsychPortAudio('Stop', pahandle2, 1, 1, 1);
 WaitSecs(1);
 PsychPortAudio('Start', pahandle1);
 PsychPortAudio('Stop', pahandle1, 1,1,2);
-
+% Participant explanation on how to submit the response. 
 DrawFormattedText(window, 'Type your response and press enter.', 'center', 'center', white);
 Screen('Flip', window);
 WaitSecs(2);
@@ -271,7 +274,7 @@ for Round_Number = 1:3 % 3 total rounds of the experiment
     DrawFormattedText(window, '10th floor', 'center', 'center', white); % Shows "10th floor" on the screen.
     Screen('Flip', window);
     WaitSecs(2);
-    Random_iteration = randi(3,1,1); % Generates a random integer from 1-3. 
+    Random_iteration = randi(3,1,1); % Generates one random integer from 1-3. 
     for jj = 1:Random_iteration % 1-3 repeats of a block with one block having an elevator going up and going down. 
         Random_Number = randi(5,1,6); % Generating a vector of 6 random numbers from 1-5. Values used to determine the number of beeps.
         Random_Number_distracting = randi(2,1,4); % Generating a vector of 4 random numbers that are either 1 or 2 for distracting sounds. 
@@ -284,7 +287,7 @@ for Round_Number = 1:3 % 3 total rounds of the experiment
         PsychPortAudio('Start', pahandle1);
         PsychPortAudio('Stop', pahandle1, 1,1, Random_Number(jj)); 
         WaitSecs(1);
-        % Calculating what floor you would be on
+        % Calculating what floor you would be on after going up. 
         Floor_Number = Floor_Number + Random_Number(jj);
         % Play Distracting Sound Random_Number_distracting(jj) number of times. 
         PsychPortAudio('Start', pahandle2);
@@ -294,7 +297,7 @@ for Round_Number = 1:3 % 3 total rounds of the experiment
         PsychPortAudio('Start', pahandle1);
         PsychPortAudio('Stop', pahandle1, 1,1, Random_Number(jj+1)); 
         WaitSecs(1);
-        % Calculating what floor you would be on
+        % Calculating what floor you would be on after going up.
         Floor_Number = Floor_Number + Random_Number(jj+1);
         % Switching to a down elevator background
         Screen('DrawTexture', window, imageTexture_down, [], [], 0);
@@ -304,7 +307,7 @@ for Round_Number = 1:3 % 3 total rounds of the experiment
         PsychPortAudio('Start', pahandle1);
         PsychPortAudio('Stop', pahandle1, 1,1, Random_Number(jj+2));
         WaitSecs(1);
-        % Calculating what floor you would be on
+        % Calculating what floor you would be on after going down. 
         Floor_Number = Floor_Number - Random_Number(jj+2);
          % Play Distracting Sound Random_Number_distracting(jj+1) number of times. 
         PsychPortAudio('Start', pahandle2);
