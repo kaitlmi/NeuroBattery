@@ -55,21 +55,21 @@ DrawFormattedText(window, num2str(test_output) ,'center', screenYpixels * 0.5, [
 Screen('Flip', window);
 WaitSecs(1);
 test_input = str2num(GetEchoString(window, 'Type digits here:', 45, 675, black, white));
-	if  length(test_input) ~= length(test_output) 
+	if  length(test_input) ~= length(test_output) %incorrect response 
         DrawFormattedText(window, 'Hm... That''s not quite right.', 'center', 'center');
         Screen('Flip', window);
         WaitSecs(3.5);
         DrawFormattedText(window, 'The correct response was 1 2 3', 'center', 'center');
         Screen('Flip', window);
         WaitSecs(2.5);
-    elseif test_input ~= test_output 
+    elseif test_input ~= test_output %incorrect response 
 		DrawFormattedText(window, 'Hm... That''s not quite right.', 'center', 'center');
         Screen('Flip', window);
         WaitSecs(3.5);
         DrawFormattedText(window, 'The correct response was 1 2 3', 'center', 'center');
         Screen('Flip', window);
         WaitSecs(2.5);
-    else
+    else %correct response
 		DrawFormattedText(window, 'Great work. Now onto the real task.', 'center', 'center');
         Screen('Flip', window);
         WaitSecs(3.5);
@@ -105,15 +105,15 @@ DrawFormattedText(window, num2str(span_output) ,...
 %input text code 
 span_input = str2num(GetEchoString(window, 'Type digits here:', 45, 675, black, white));
 
-	if  length(span_output) ~= length(span_input)
+	if  length(span_output) ~= length(span_input) %incorrect resp
         error_span = error_span + 1;
         disp(['Round ', num2str(count), ' was incorrect'])
         count = count + 1; 
-    elseif span_output ~= span_input 
+    elseif span_output ~= span_input %incorrect resp
 		error_span = error_span + 1;
         disp(['Round ', num2str(count), ' was incorrect'])
         count = count + 1; 
-    else
+    else %correct resp
 		score_span = score_span + 1;
         correct(count) = count;
         count = count + 1; 
