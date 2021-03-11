@@ -59,11 +59,17 @@ test_input = str2num(GetEchoString(window, 'Type digits here:', 45, 675, black, 
         DrawFormattedText(window, 'Hm... That''s not quite right.', 'center', 'center');
         Screen('Flip', window);
         WaitSecs(3.5);
+        DrawFormattedText(window, 'Make sure you put spaces between your numbers', 'center', 'center');
+        Screen('Flip', window);
+        WaitSecs(3.5);
         DrawFormattedText(window, 'The correct response was 1 2 3', 'center', 'center');
         Screen('Flip', window);
         WaitSecs(2.5);
     elseif test_input ~= test_output %incorrect response 
 		DrawFormattedText(window, 'Hm... That''s not quite right.', 'center', 'center');
+        Screen('Flip', window);
+        WaitSecs(3.5);
+        DrawFormattedText(window, 'Make sure you put spaces between your numbers', 'center', 'center');
         Screen('Flip', window);
         WaitSecs(3.5);
         DrawFormattedText(window, 'The correct response was 1 2 3', 'center', 'center');
